@@ -121,7 +121,14 @@ class RBSheet extends Component {
           <TouchableOpacity
             style={styles.mask}
             activeOpacity={1}
-            onPress={() => (closeOnPressMask ? this.close() : null)}
+            // onPress={() => (closeOnPressMask ? this.close() : null)}
+            onPress={() => {
+              if (this.props.delayClose) {
+                this.props.delayClose()
+                return
+              }
+              (closeOnPressMask ? this.close() : null)
+            }}
           />
           <Animated.View
             {...(!dragFromTopOnly && this.panResponder.panHandlers)}

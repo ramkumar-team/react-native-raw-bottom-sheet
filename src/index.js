@@ -9,6 +9,7 @@ import {
   PanResponder,
   Platform
 } from "react-native";
+import { BlurView } from 'expo-blur';
 import styles from "./style";
 
 const SUPPORTED_ORIENTATIONS = [
@@ -96,6 +97,7 @@ class RBSheet extends Component {
       closeOnPressBack,
       children,
       customStyles,
+      blur,
       keyboardAvoidingViewEnabled
     } = this.props;
     const { animatedHeight, pan, modalVisible } = this.state;
@@ -129,7 +131,9 @@ class RBSheet extends Component {
               }
               (closeOnPressMask ? this.close() : null)
             }}
-          />
+          >{blur&&(<BlurView intensity={10} style={{
+          height:'110%',
+        }}></BlurView>)}</TouchableOpacity>
           <Animated.View
             {...(!dragFromTopOnly && this.panResponder.panHandlers)}
             style={[panStyle, styles.container, { height: animatedHeight }, customStyles.container]}
@@ -165,6 +169,7 @@ RBSheet.propTypes = {
   onClose: PropTypes.func,
   onOpen: PropTypes.func,
   children: PropTypes.node
+  blur: PropType.bool
 };
 
 RBSheet.defaultProps = {
@@ -178,6 +183,7 @@ RBSheet.defaultProps = {
   closeOnPressMask: true,
   closeOnPressBack: true,
   keyboardAvoidingViewEnabled: Platform.OS === "ios",
+  blur: false,
   customStyles: {},
   onClose: null,
   onOpen: null,

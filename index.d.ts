@@ -4,6 +4,7 @@ import { StyleProp, ViewStyle } from "react-native";
 declare module "react-native-raw-bottom-sheet" {
   export type RBSheetProps = {
     animationType?: "none" | "fade" | "slide";
+    blur?: boolean,
     height?: number;
     minClosingHeight?: number;
     openDuration?: number;
